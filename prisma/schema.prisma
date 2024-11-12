@@ -7,10 +7,46 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  createdAt DateTime @default(now())
-  age       Int?     // Adicionando um novo campo opcional 'age'
+enum TipogeraPainel {
+  numero
+  letra
+}
+
+model Empresa {
+  idEmpresa       Int    @id @default(autoincrement())
+  nmEmpresa       String
+  cnpj            BigInt @unique
+  emailEmpresa    String @unique
+  passwordEmpresa String
+
+  paineis Painel[]
+}
+
+model Painel {
+  idPainel       Int            @id @default(autoincrement())
+  nmPainel       String
+  emailPainel    String
+  passwordPainel String
+  tipoSenha      TipogeraPainel
+
+  fkEmpresa Int?
+  empresa   Empresa? @relation(fields: [fkEmpresa], references: [idEmpresa], onDelete: Cascade, onUpdate: Cascade)
+
+  senhas Senha[]
+}
+
+model Senha {
+  idSenha   Int       @id @default(autoincrement())
+  nmSenha   String
+  dataSenha DateTime?
+
+  fkPainel Int?
+  painel   Painel? @relation(fields: [fkPainel], references: [idPainel], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Usuario {
+  idUser    Int    @id @default(autoincrement())
+  nmUser    String
+  cpfUser   String
+  emailUser String
 }
