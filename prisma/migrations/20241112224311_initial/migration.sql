@@ -1,14 +1,5 @@
-/*
-  Warnings:
-
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
 -- CreateEnum
 CREATE TYPE "TipogeraPainel" AS ENUM ('numero', 'letra');
-
--- DropTable
-DROP TABLE "User";
 
 -- CreateTable
 CREATE TABLE "Empresa" (
@@ -37,7 +28,8 @@ CREATE TABLE "Painel" (
 CREATE TABLE "Senha" (
     "idSenha" SERIAL NOT NULL,
     "nmSenha" TEXT NOT NULL,
-    "dataSenha" TIMESTAMP(3),
+    "salaSenha" TEXT,
+    "dataSenha" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "fkPainel" INTEGER,
 
     CONSTRAINT "Senha_pkey" PRIMARY KEY ("idSenha")

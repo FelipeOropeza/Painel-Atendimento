@@ -38,8 +38,8 @@ model Painel {
 model Senha {
   idSenha   Int       @id @default(autoincrement())
   nmSenha   String
-  dataSenha DateTime?
-
+  salaSenha String?
+  dataSenha DateTime @default(now())
   fkPainel Int?
   painel   Painel? @relation(fields: [fkPainel], references: [idPainel], onDelete: Cascade, onUpdate: Cascade)
 }
