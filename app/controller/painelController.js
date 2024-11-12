@@ -1,6 +1,14 @@
 class PainelController{
-    static insertEmpresa(req, res){
+    static loginEmpresa(req, res){
         res.render('index');
+    }
+
+    static cadastroEmpresa(req, res){
+        res.render('formEmpresa')
+    }
+
+    static insertEmpresa(req, res){
+        console.log(req.body);
     }
 }
 
