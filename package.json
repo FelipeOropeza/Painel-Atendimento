@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server.js",
+    "build:css": "tailwindcss build public/css/index.css -o public/css/dist/index.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -19,7 +20,10 @@
     "painel-atendimento": "file:"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.20",
     "nodemon": "^3.1.7",
-    "prisma": "^5.22.0"
+    "postcss": "^8.4.49",
+    "prisma": "^5.22.0",
+    "tailwindcss": "^3.4.14"
   }
 }
