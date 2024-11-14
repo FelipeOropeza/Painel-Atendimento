@@ -4,8 +4,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build:css": "npx tailwindcss -i ./src/styles/tailwind.css -o ./public/css/dist/index.css --watch",
-    "dev": "concurrently 'npm run build:css' 'nodemon server.js'"
+    "build:css": "npx tailwindcss -i ./public/css/index.css -o ./public/css/dist/index.css --watch",
+    "dev": "concurrently \"npm run build:css\" \"nodemon server.js\""
   },
   "author": "",
   "license": "ISC",
