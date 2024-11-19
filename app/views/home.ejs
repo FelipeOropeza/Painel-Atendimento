@@ -6,7 +6,47 @@
     <link rel="stylesheet" href="/css/dist/index.css" />
     <title>Home</title>
   </head>
-  <body>
-    <h1>Bem-vindo ao seu perfil, <%= dados.empresa.nmEmpresa %>!</h1>
+  <body class="bg-gray-100 min-h-screen">
+    <% if (!guiche) { %>
+    <div
+      class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center"
+    >
+      <div class="bg-white rounded-lg p-6 shadow-lg w-1/3">
+        <h2 class="text-lg font-bold mb-4">Informe o número do guichê</h2>
+        <form action="/set-guiche" method="POST">
+          <input
+            type="text"
+            name="guiche"
+            placeholder="Digite o número do guichê"
+            class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          <button
+            type="submit"
+            class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          >
+            Confirmar
+          </button>
+        </form>
+      </div>
+    </div>
+    <% } else { %>
+    <nav class="bg-blue-600 text-white p-4">
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="text-lg font-bold">Meu Sistema</div>
+        <div class="flex items-center gap-4">
+          <span class="text-sm"
+            >Guichê: <span class="font-bold"><%= guiche %></span></span
+          >
+          <a
+            href="/logout"
+            class="bg-red-600 py-1 px-4 rounded-full text-white text-sm font-bold hover:bg-red-700"
+          >
+            Sair
+          </a>
+        </div>
+      </div>
+    </nav>
+    <% } %>
   </body>
 </html>
