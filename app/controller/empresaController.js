@@ -9,45 +9,43 @@ class EmpresaController {
   static async postLoginEmpresa(req, res) {
     try {
       const { email, senha } = req.body;
-  
       if (!email || !senha) {
         return res.render("index", {
           errorMessage: "Todos os campos são obrigatórios.",
           successMessage: "",
           email: "",
-          senha: ""
+          senha: "",
         });
       }
-  
       const empresa = await getbyEmpresa([{ email }]);
       if (!empresa) {
         return res.render("index", {
           errorMessage: "Empresa não encontrada.",
           successMessage: "",
           email: "",
-          senha: ""
+          senha: "",
         });
       }
-  
+
       const bool = await verificarSenha(senha, empresa.passwordEmpresa);
       if (!bool) {
         return res.render("index", {
           errorMessage: "A senha está incorreta.",
           successMessage: "",
           email: "",
-          senha: "" 
+          senha: "",
         });
       }
-  
+
       const { passwordEmpresa, cnpj, ...empresaSemDadosSensíveis } = empresa;
-  
+
       req.session.dados = { empresa: empresaSemDadosSensíveis };
-  
+
       return res.render("index", {
         errorMessage: "",
         successMessage: "Login feito com sucesso!",
         email: "",
-        senha: ""
+        senha: "",
       });
     } catch (error) {
       console.error("Erro ao fazer login:", error);
@@ -55,11 +53,10 @@ class EmpresaController {
         errorMessage: "Erro interno do servidor.",
         successMessage: "",
         email: "",
-        senha: ""
+        senha: "",
       });
     }
   }
-  
 
   static cadastroEmpresa(req, res) {
     res.render("formEmpresa", { errorMessage: "", successMessage: "" });
