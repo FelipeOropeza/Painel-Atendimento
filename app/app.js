@@ -14,10 +14,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   session({
-    secret: "seuSegredoAqui",
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false },
+    secret: "seu-segredo-unico",
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+    },
   })
 );
 
