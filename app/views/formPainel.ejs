@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/dist/index.css" />
+    <title>Cadastrar Painel</title>
+  </head>
+  <body>
+    <nav class="bg-blue-600 text-white p-4">
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center gap-4">
+          <div class="text-lg font-bold"><a href="/home">Meu Sistema</a></div>
+          <a
+            href="/criar-painel"
+            class="bg-yellow-600 py-1 px-4 rounded-full text-white text-sm font-bold hover:bg-yellow-700"
+          >
+            Criar Painel
+          </a>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="text-sm">
+            Guichê: <span class="font-bold"><%= guiche %></span>
+          </span>
+          <a
+            href="/painel"
+            class="bg-green-600 py-1 px-4 rounded-full text-white text-sm font-bold hover:bg-green-700"
+          >
+            Painel
+          </a>
+          <a
+            href="/logout"
+            class="bg-red-600 py-1 px-4 rounded-full text-white text-sm font-bold hover:bg-red-700"
+          >
+            Sair
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mx-auto mt-10 p-4">
+      <% if (errorMessage) { %>
+      <div
+        id="error-message"
+        class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
+      >
+        <strong class="font-bold">Erro:</strong>
+        <span class="block sm:inline"><%= errorMessage %></span>
+      </div>
+      <% } %> <% if (successMessage) { %>
+      <div
+        id="success-message"
+        class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
+      >
+        <strong class="font-bold">Sucesso:</strong>
+        <span class="block sm:inline"><%= successMessage %></span>
+      </div>
+      <% } %>
+
+      <h1 class="text-2xl font-bold mb-6">Cadastrar Painel</h1>
+      <form
+        action="/painel/cadastrar"
+        method="POST"
+        class="bg-gray-100 p-6 rounded-lg shadow-lg"
+      >
+        <div class="mb-4">
+          <label for="nmPainel" class="block text-sm font-bold mb-2"
+            >Nome do Painel:</label
+          >
+          <input
+            type="text"
+            id="nmPainel"
+            name="nmPainel"
+            required
+            class="w-full p-2 border rounded-lg"
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="emailPainel" class="block text-sm font-bold mb-2"
+            >E-mail do Painel:</label
+          >
+          <input
+            type="email"
+            id="emailPainel"
+            name="emailPainel"
+            required
+            class="w-full p-2 border rounded-lg"
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="passwordPainel" class="block text-sm font-bold mb-2"
+            >Senha:</label
+          >
+          <input
+            type="password"
+            id="passwordPainel"
+            name="passwordPainel"
+            required
+            class="w-full p-2 border rounded-lg"
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="tipoSenha" class="block text-sm font-bold mb-2"
+            >Tipo de Senha:</label
+          >
+          <select
+            id="tipoSenha"
+            name="tipoSenha"
+            required
+            class="w-full p-2 border rounded-lg"
+          >
+            <option value="numero">Número</option>
+            <option value="letra">Letra</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="bg-blue-600 text-white py-2 px-4 rounded-full font-bold hover:bg-blue-700"
+        >
+          Cadastrar
+        </button>
+      </form>
+    </div>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const errorMessage = document.getElementById("error-message");
+        const successMessage = document.getElementById("success-message");
+
+        if (errorMessage) {
+          setTimeout(() => {
+            errorMessage.classList.add("opacity-0");
+            setTimeout(() => errorMessage.remove(), 400);
+          }, 1200);
+        }
+
+        if (successMessage) {
+          setTimeout(() => {
+            successMessage.classList.add("opacity-0");
+            setTimeout(() => successMessage.remove(), 300);
+          }, 1200);
+        }
+      });
+    </script>
+  </body>
+</html>
