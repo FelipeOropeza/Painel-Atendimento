@@ -33,11 +33,25 @@
     <% } else { %>
     <nav class="bg-blue-600 text-white p-4">
       <div class="container mx-auto flex justify-between items-center">
-        <div class="text-lg font-bold">Meu Sistema</div>
         <div class="flex items-center gap-4">
-          <span class="text-sm"
-            >Guichê: <span class="font-bold"><%= guiche %></span></span
+          <div class="text-lg font-bold"><a href="/home">Meu Sistema</a></div>
+          <a
+            href="/criar-painel"
+            class="bg-yellow-600 py-1 px-4 rounded-full text-white text-sm font-bold hover:bg-yellow-700"
           >
+            Criar Painel
+          </a>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="text-sm">
+            Guichê: <span class="font-bold"><%= guiche %></span>
+          </span>
+          <a
+            href="/painel"
+            class="bg-green-600 py-1 px-4 rounded-full text-white text-sm font-bold hover:bg-green-700"
+          >
+            Painel
+          </a>
           <a
             href="/logout"
             class="bg-red-600 py-1 px-4 rounded-full text-white text-sm font-bold hover:bg-red-700"
@@ -47,6 +61,7 @@
         </div>
       </div>
     </nav>
+
     <% } %>
   </body>
 </html>
