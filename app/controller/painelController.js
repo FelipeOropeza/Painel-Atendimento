@@ -1,4 +1,5 @@
-import { insertPainel } from "../service/painelService.js";
+import { getbyPainel, insertPainel } from "../service/painelService.js";
+import { verificarSenha } from "../utils/hashUtil.js";
 
 class PainelController {
   static criarPainel(req, res) {
@@ -52,6 +53,76 @@ class PainelController {
         guiche,
         errorMessage: "Erro interno do servidor.",
         successMessage: "",
+      });
+    }
+  }
+
+  static painel(req, res) {
+    const painel = req.session.painel || null;
+
+    res.render("painel", {
+      painel,
+      redirect: "",
+      errorMessage: "",
+      successMessage: "",
+    });
+  }
+
+  static async loginPainel(req, res) {
+    try {
+      const { email, password } = req.body;
+      if (!email || !password) {
+        return res.render("painel", {
+          painel: null,
+          errorMessage: "Todos os campos são obrigatórios.",
+          successMessage: "",
+          email,
+          password,
+        });
+      }
+
+      const painel = await getbyPainel([{ email }]);
+      if (!painel) {
+        return res.render("painel", {
+          painel: null,
+          errorMessage: "O Painel não foi encontrado.",
+          successMessage: "",
+          email,
+          password,
+        });
+      }
+
+      const bool = await verificarSenha(password, painel.passwordPainel);
+      if (!bool) {
+        return res.render("painel", {
+          painel: null,
+          errorMessage: "A senha está incorreta.",
+          successMessage: "",
+          email,
+          password,
+        });
+      }
+
+      const { passwordPainel, ...painelSemDadosSensíveis } = painel;
+
+      req.session.painel = painelSemDadosSensíveis;
+
+      return res.render("painel", {
+        painel,
+        errorMessage: "",
+        successMessage: "Login feito com sucesso!",
+        email: "",
+        password: "",
+        redirect: "/painel",
+      });
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      return res.render("painel", {
+        painel: null,
+        errorMessage: "Erro interno do servidor.",
+        successMessage: "",
+        email: "",
+        password: "",
       });
     }
   }

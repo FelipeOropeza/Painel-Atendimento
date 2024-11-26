@@ -13,3 +13,13 @@ export const insertPainel = async ([data]) => {
     },
   });
 };
+
+export const getbyPainel = async ([data]) => {
+  const getPainel = await prisma.painel.findFirst({
+    where: {
+      emailPainel: data.email,
+    },
+  });
+
+  return getPainel;
+}
