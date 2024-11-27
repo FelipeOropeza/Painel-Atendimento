@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/dist/index.css" />
+    <meta http-equiv="refresh" content="5">
     <title>Painel</title>
   </head>
   <body>
@@ -67,14 +68,17 @@
       >
         <h2 class="text-2xl font-bold text-blue-700 mb-4">Senhas Geradas</h2>
         <ul id="senhas-geradas" class="space-y-3 overflow-y-auto flex-1">
-          <!-- As senhas geradas serão exibidas aqui -->
-          <li class="bg-blue-100 text-blue-700 p-4 rounded-md shadow">
-            Senha 001
-          </li>
-          <li class="bg-blue-100 text-blue-700 p-4 rounded-md shadow">
-            Senha 002
-          </li>
+          <% if (senhasGeradas && senhasGeradas.length > 0) { %>
+            <% senhasGeradas.forEach((senha) => { %>
+              <li class="bg-blue-100 text-blue-700 p-4 rounded-md shadow">
+                Senha: <%= senha.nmSenha %>
+              </li>
+            <% }) %>
+          <% } else { %>
+            <li class="text-gray-500">Nenhuma senha disponível.</li>
+          <% } %>
         </ul>
+        
       </div>
 
       <!-- Última Senha Chamada -->

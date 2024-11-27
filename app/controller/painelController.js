@@ -1,4 +1,5 @@
 import { getbyPainel, insertPainel } from "../service/painelService.js";
+import { getAllSenhas } from "../service/senhaService.js";
 import { verificarSenha } from "../utils/hashUtil.js";
 
 class PainelController {
@@ -57,11 +58,13 @@ class PainelController {
     }
   }
 
-  static painel(req, res) {
+  static async painel(req, res) {
     const painel = req.session.painel || null;
+    const senhasGeradas = await getAllSenhas();
 
     res.render("painel", {
       painel,
+      senhasGeradas,
       redirect: "",
       errorMessage: "",
       successMessage: "",
@@ -71,9 +74,12 @@ class PainelController {
   static async loginPainel(req, res) {
     try {
       const { email, password } = req.body;
+      const senhasGeradas = await getAllSenhas();
+
       if (!email || !password) {
         return res.render("painel", {
           painel: null,
+          senhasGeradas: null,
           errorMessage: "Todos os campos são obrigatórios.",
           successMessage: "",
           email,
@@ -85,6 +91,7 @@ class PainelController {
       if (!painel) {
         return res.render("painel", {
           painel: null,
+          senhasGeradas: null,
           errorMessage: "O Painel não foi encontrado.",
           successMessage: "",
           email,
@@ -96,6 +103,7 @@ class PainelController {
       if (!bool) {
         return res.render("painel", {
           painel: null,
+          senhasGeradas: null,
           errorMessage: "A senha está incorreta.",
           successMessage: "",
           email,
@@ -109,6 +117,7 @@ class PainelController {
 
       return res.render("painel", {
         painel,
+        senhasGeradas,
         errorMessage: "",
         successMessage: "Login feito com sucesso!",
         email: "",
@@ -119,6 +128,7 @@ class PainelController {
       console.error("Erro ao fazer login:", error);
       return res.render("painel", {
         painel: null,
+        senhasGeradas: null,
         errorMessage: "Erro interno do servidor.",
         successMessage: "",
         email: "",
