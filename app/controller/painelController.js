@@ -1,5 +1,5 @@
 import { getbyPainel, insertPainel } from "../service/painelService.js";
-import { getAllSenhas } from "../service/senhaService.js";
+import { getAllSenhas, getProximaSenha, getSenhasConcluidas } from "../service/senhaService.js";
 import { verificarSenha } from "../utils/hashUtil.js";
 
 class PainelController {
@@ -61,10 +61,14 @@ class PainelController {
   static async painel(req, res) {
     const painel = req.session.painel || null;
     const senhasGeradas = await getAllSenhas();
+    const senhaAtual = await getProximaSenha();
+    const senhasConcluidas = await getSenhasConcluidas(); // Obtém as senhas concluídas
 
     res.render("painel", {
       painel,
       senhasGeradas,
+      senhaAtual,
+      senhasConcluidas ,
       redirect: "",
       errorMessage: "",
       successMessage: "",
@@ -75,11 +79,15 @@ class PainelController {
     try {
       const { email, password } = req.body;
       const senhasGeradas = await getAllSenhas();
+      const senhaAtual = await getProximaSenha();
+      const senhasConcluidas = await getSenhasConcluidas(); // Obtém as senhas concluídas
 
       if (!email || !password) {
         return res.render("painel", {
           painel: null,
           senhasGeradas: null,
+          senhaAtual: null,
+          senhasConcluidas: null,
           errorMessage: "Todos os campos são obrigatórios.",
           successMessage: "",
           email,
@@ -92,6 +100,8 @@ class PainelController {
         return res.render("painel", {
           painel: null,
           senhasGeradas: null,
+          senhaAtual: null,
+          senhasConcluidas: null,
           errorMessage: "O Painel não foi encontrado.",
           successMessage: "",
           email,
@@ -104,6 +114,8 @@ class PainelController {
         return res.render("painel", {
           painel: null,
           senhasGeradas: null,
+          senhaAtual: null,
+          senhasConcluidas: null,
           errorMessage: "A senha está incorreta.",
           successMessage: "",
           email,
@@ -118,6 +130,8 @@ class PainelController {
       return res.render("painel", {
         painel,
         senhasGeradas,
+        senhaAtual,
+        senhasConcluidas,
         errorMessage: "",
         successMessage: "Login feito com sucesso!",
         email: "",
@@ -129,6 +143,8 @@ class PainelController {
       return res.render("painel", {
         painel: null,
         senhasGeradas: null,
+        senhaAtual: null,
+        senhasConcluidas: null,
         errorMessage: "Erro interno do servidor.",
         successMessage: "",
         email: "",
