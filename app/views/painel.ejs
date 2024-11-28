@@ -5,10 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/dist/index.css" />
     <title>Painel</title>
+    <style>
+      /* Estilos para cobrir a tela com o vídeo */
+      #video-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    </style>
   </head>
   <body>
     <% if (!painel) { %>
-    <!-- Login Form -->
     <div
       class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center"
     >
@@ -61,7 +80,6 @@
       </div>
     </div>
     <% } else { %>
-    <!-- Display Weather and Time -->
     <div
       id="weather-time"
       class="fixed top-2 right-4 bg-gray-800 text-white p-4 rounded-md shadow-lg flex items-center space-x-4"
@@ -69,10 +87,8 @@
       <div id="temperature" class="text-lg font-bold">--°C</div>
       <div id="time" class="text-sm">--:--:--</div>
     </div>
-    
-    <!-- Main Panel -->
-    <div class="grid grid-cols-2 grid-rows-2 h-screen bg-gray-100">
-      <!-- Senhas Geradas -->
+
+    <div id="content" class="grid grid-cols-2 grid-rows-2 h-screen bg-gray-100">
       <div
         class="col-span-1 row-span-2 bg-blue-50 p-6 flex flex-col rounded-lg shadow-lg"
       >
@@ -82,7 +98,6 @@
         </ul>
       </div>
 
-      <!-- Última Senha Chamada -->
       <div
         class="col-span-1 bg-green-50 p-6 flex flex-col justify-between rounded-lg shadow-lg"
       >
@@ -95,7 +110,6 @@
         ></div>
       </div>
 
-      <!-- Senhas Já Chamadas -->
       <div class="col-span-1 bg-red-50 p-6 flex flex-col rounded-lg shadow-lg">
         <h2 class="text-2xl font-bold text-red-700 mb-4">Senhas Já Chamadas</h2>
         <ul id="senhas-ja-chamadas" class="space-y-3 overflow-y-auto flex-1">
@@ -111,6 +125,35 @@
       }, 1000);
     </script>
     <% } %>
+
+    <div id="video-container">
+      <video id="fullscreen-video" autoplay muted>
+        <source src="/video/video.mp4" type="video/mp4" />
+        Seu navegador não suporta o elemento de vídeo.
+      </video>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        function showVideo() {
+          const content = document.getElementById("content");
+          const videoContainer = document.getElementById("video-container");
+          const video = document.getElementById("fullscreen-video");
+
+          content.style.display = "none";
+          videoContainer.style.display = "flex";
+
+          video.currentTime = 0;
+          video.play();
+
+          video.onended = function () {
+            videoContainer.style.display = "none";
+            content.style.display = "grid";
+          };
+        }
+
+        setInterval(showVideo, 130000);
+      });
+    </script>
     <script src="/js/script.js"></script>
   </body>
 </html>

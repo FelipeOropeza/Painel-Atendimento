@@ -48,7 +48,6 @@ async function atualizarSenhas() {
     if (!response.ok) throw new Error("Erro ao buscar senhas");
     const dados = await response.json();
 
-    // Atualiza as senhas geradas
     const senhasGeradasContainer = document.getElementById("senhas-geradas");
     senhasGeradasContainer.innerHTML = "";
     if (dados.senhasGeradas && dados.senhasGeradas.length > 0) {
@@ -74,6 +73,7 @@ async function atualizarSenhas() {
     const ultimaSenhaContainer = document.getElementById("ultima-senha");
     if (dados.senhaAtual) {
       ultimaSenhaContainer.textContent = `Senha chamada: ${dados.senhaAtual.nmSenha} - Guichê: ${dados.senhaAtual.salaSenha}`;
+      falarSenha();
     } else {
       ultimaSenhaContainer.textContent = "Nenhuma senha chamada ainda...";
     }
@@ -103,6 +103,13 @@ async function atualizarSenhas() {
   } catch (error) {
     console.error("Erro ao atualizar senhas:", error);
   }
+}
+
+function falarSenha() {
+  const texto = document.getElementById("ultima-senha").textContent; // Pega o texto da senha atual
+  const synth = window.speechSynthesis; // Instancia a síntese de fala
+  const utterance = new SpeechSynthesisUtterance(texto); // Cria o objeto de fala com o texto
+  synth.speak(utterance); // Fala o texto
 }
 
 atualizarSenhas();

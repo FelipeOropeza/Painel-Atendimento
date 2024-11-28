@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import routes from "./routes/index.js";
 import session from "express-session";
+import path from "path";
 
 const app = express();
 app.set("view engine", "ejs");
