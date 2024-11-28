@@ -35,13 +35,26 @@ model Painel {
   senhas Senha[]
 }
 
+model Fila {
+  idFila    Int      @id @default(autoincrement())
+  posicao   Int      @unique
+  status    String   @default("pendente")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  fkSenha Int
+  senha   Senha @relation(fields: [fkSenha], references: [idSenha], onDelete: Cascade, onUpdate: Cascade)
+}
+
 model Senha {
-  idSenha   Int       @id @default(autoincrement())
+  idSenha   Int      @id @default(autoincrement())
   nmSenha   String
   salaSenha String?
+  status    String   @default("pendente")
   dataSenha DateTime @default(now())
-  fkPainel Int?
-  painel   Painel? @relation(fields: [fkPainel], references: [idPainel], onDelete: Cascade, onUpdate: Cascade)
+  fkPainel  Int?
+  painel    Painel?  @relation(fields: [fkPainel], references: [idPainel], onDelete: Cascade, onUpdate: Cascade)
+  filas     Fila[]
 }
 
 model Usuario {
