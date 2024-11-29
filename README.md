@@ -11,6 +11,9 @@ Sistema backend para gerenciamento de filas e atendimento. Permite controle efic
 - **Bcryptjs**: Hash de senhas para autenticação segura.
 - **Dotenv**: Gerenciamento de variáveis de ambiente.
 - **Nodemon**: Facilita o desenvolvimento com reinicialização automática do servidor.
+- **EJS (Embedded JavaScript)**: Motor de visualização para renderizar páginas dinâmicas com HTML.
+- **Tailwind CSS**: Framework CSS utilitário para estilização rápida e customizável.
+- **API de Temperatura**: Integração com uma API externa para exibir a temperatura em tempo real no painel.
 
 ---
 
