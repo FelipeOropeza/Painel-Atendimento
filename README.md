@@ -18,15 +18,16 @@ Sistema backend para gerenciamento de filas e atendimento. Permite controle efic
 ---
 
 ## Funcionalidades
-
-- **Gerenciamento de Filas**:
-  - Geração de senhas.
-  - Controle e exibição de guichês em tempo real.
-  - Priorização de atendimentos.
-- **Autenticação de Usuários**:
-  - Perfis de administrador, operador e usuário.
+- **Sistema de vinculo**:
+  - Onde o operador escolhe a primeira senha que foi gerada, assim adicionando em uma fila. 
+- **Painel que mostra**:
+  - Senhas criadas.
+  - Senha atual.
+  - Senhas que já foram chamadas.
+- **Autenticação da Empresa**:
+  - O operador, tem um perfil dá empresa, podendo usar em vários computadores, trocando só o guiche.
 - **Painel de Atendimento**:
-  - Atualização em tempo real para operadores e usuários.
+  - Atualização em tempo real da temperatura ambiente e as horas.
 
 ---
 
