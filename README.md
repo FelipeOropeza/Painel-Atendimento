@@ -1,31 +1,51 @@
-﻿# Painel-Atendimento - MVC
+# Painel de Atendimento - Back-end e Front-end
 
-Este é o backend da aplicação **DicaCommunity**, uma plataforma de compartilhamento de dicas e interação entre usuários.
+Sistema backend para gerenciamento de filas e atendimento. Permite controle eficiente de filas, autenticação de usuários e visualização em tempo real dos atendimentos.
+
+---
 
 ## Tecnologias Utilizadas
 
-- **Node.js** e **Express**: para criação de uma API segura e de alto desempenho.
-- **MongoDB** com **Prisma**: banco de dados flexível e consultas otimizadas.
-- **JWT**: autenticação baseada em tokens para segurança.
-- **Firebase Storage**: armazenamento de imagens dos usuários e postagens.
-- **Nodemon**: para reinicialização automática do servidor durante o desenvolvimento.
-- **Bcryptjs**: Biblioteca para hash de senhas, garantindo segurança na autenticação de usuários.
-- **Dotenv**: Carrega variáveis de ambiente a partir de um arquivo `.env`, mantendo segredos e configurações fora do código-fonte.
-- **Firebase-admin**: SDK para interagir com os serviços do Firebase, incluindo autenticação e armazenamento.
-- **Multer**: Middleware para manipulação de `multipart/form-data`, facilitando o upload de arquivos.
+- **Node.js** e **Express**: Framework backend rápido e flexível.
+- **PostgreSQL** com **Prisma**: Banco de dados relacional com mapeamento de dados eficiente.
+- **Bcryptjs**: Hash de senhas para autenticação segura.
+- **Dotenv**: Gerenciamento de variáveis de ambiente.
+- **Nodemon**: Facilita o desenvolvimento com reinicialização automática do servidor.
 
-## Funcionalidades Principais
+---
 
-- Autenticação e autorização de usuários.
-- Sistema de postagens com likes e comentários em tempo real.
-- Upload e visualização de imagens.
+## Funcionalidades
+
+- **Gerenciamento de Filas**:
+  - Geração de senhas.
+  - Controle e exibição de guichês em tempo real.
+  - Priorização de atendimentos.
+- **Autenticação de Usuários**:
+  - Perfis de administrador, operador e usuário.
+- **Painel de Atendimento**:
+  - Atualização em tempo real para operadores e usuários.
+
+---
+
+## Estrutura do Projeto
+
+O projeto segue o padrão de **Service**, **Controller** e **View**:
+
+- **Service**:
+  - Manipulação de dados via Prisma.
+- **Controller**:
+  - Lógica de negócios e interação entre Service e View.
+- **View**:
+  - Respostas em formato JSON, integradas ao frontend.
+
+---
 
 ## Como Executar o Projeto
 
 1. **Clone o repositório**:
    ```bash
-   git clone https://github.com/FelipeOropeza/Api-postagens.git
-   cd Api-postagens
+   git clone https://github.com/FelipeOropeza/Painel-Atendimento.git
+   cd Painel-Atendimento
 
 2. **Certifique-se de ter o Node.js instalado**:
   Versão mínima recomendada: 14.x
@@ -37,7 +57,7 @@ Este é o backend da aplicação **DicaCommunity**, uma plataforma de compartilh
 4. **Crie o arquivo .env com base no arquivo .env.example fornecido**:
    Configure as variáveis de ambiente de acordo com as credenciais e configurações do seu ambiente.
 
-5. **Crie as coleções no banco de dados**: Para aplicar o modelo de dados e criar as coleções no MongoDB, execute o seguinte comando do Prisma:
+5. **Prepare o banco de dados**: Aplique o esquema do Prisma no PostgreSQL:
    ```bash
    npx prisma db push
 
