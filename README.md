@@ -33,14 +33,19 @@ Sistema backend para gerenciamento de filas e atendimento. Permite controle efic
 
 ## Estrutura do Projeto
 
-O projeto segue o padrão de **Service**, **Controller** e **View**:
+O projeto segue o padrão **Service, Controller e View**, onde cada parte é responsável por uma área específica da aplicação:
 
-- **Service**:
-  - Manipulação de dados via Prisma.
+- **Service**: 
+  - Manipula dados de usuários, empresas, etc.
+  - Exemplo: `UserService` pode incluir métodos para criar, ler, atualizar ou deletar usuários.
+
 - **Controller**:
-  - Lógica de negócios e interação entre Service e View.
-- **View**:
-  - Respostas em formato JSON, integradas ao frontend.
+  - Controla o fluxo de dados entre o **Service** e a **View**.
+  - Exemplo: `UserController` pode conter uma rota para exibir todos os usuários, que irá consultar o `UserService` e passar os dados para uma view **EJS** renderizada.
+
+- **View (EJS)**:
+  - Templates **EJS** são usados para gerar HTML dinâmico que será enviado ao cliente.
+  - Exemplo: `userList.ejs` renderiza a lista de usuários, recebendo dados processados pelo `UserController`.
 
 ---
 
