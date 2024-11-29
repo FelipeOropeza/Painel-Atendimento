@@ -62,8 +62,8 @@ O projeto segue o padrão de **Service**, **Controller** e **View**:
 
 5. **Prepare o banco de dados**: Aplique o esquema do Prisma no PostgreSQL:
    ```bash
-   npx prisma db push
-
+    npx prisma migrate deploy
+  
 6. **Execute o servidor**:
     ```bash
     npm run dev
