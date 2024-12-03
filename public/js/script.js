@@ -30,7 +30,7 @@ async function fetchTemperatura() {
           const response = await fetch(url);
           if (!response.ok) throw new Error("Erro na API");
           const data = await response.json();
-          resolve(data.temperature.toFixed(1)); // Retorna a temperatura
+          resolve(data.temperature.toFixed(1));
         } catch (error) {
           reject(error);
         }
@@ -106,10 +106,10 @@ async function atualizarSenhas() {
 }
 
 function falarSenha() {
-  const texto = document.getElementById("ultima-senha").textContent; // Pega o texto da senha atual
-  const synth = window.speechSynthesis; // Instancia a síntese de fala
-  const utterance = new SpeechSynthesisUtterance(texto); // Cria o objeto de fala com o texto
-  synth.speak(utterance); // Fala o texto
+  const texto = document.getElementById("ultima-senha").textContent;
+  const synth = window.speechSynthesis;
+  const utterance = new SpeechSynthesisUtterance(texto);
+  synth.speak(utterance);
 }
 
 atualizarSenhas();

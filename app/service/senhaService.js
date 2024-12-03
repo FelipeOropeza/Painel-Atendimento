@@ -5,6 +5,9 @@ export const getAllSenhas = async () => {
     where: {
       salaSenha: null,
     },
+    include: {
+      painel: true,
+    },
   });
 };
 
@@ -26,7 +29,7 @@ export const updateSenha = async ([data]) => {
   });
 };
 
-const getNextFilaPosition = async () => {
+const getNextFilaPosition = async ([data]) => {
   const lastFila = await prisma.fila.findFirst({
     orderBy: {
       posicao: "desc",
@@ -35,15 +38,18 @@ const getNextFilaPosition = async () => {
   return lastFila ? lastFila.posicao + 1 : 1;
 };
 
-export const getProximaSenha = async () => {
+export const getProximaSenha = async ([data]) => {
+  const { idPainel } = data;
+
   const proximaFila = await prisma.fila.findFirst({
     where: {
+      status: "pendente",
       senha: {
-        status: 'pendente', 
+        fkPainel: idPainel,
       },
     },
     orderBy: {
-      posicao: 'asc',
+      posicao: "asc",
     },
     include: {
       senha: true,
@@ -56,7 +62,7 @@ export const getProximaSenha = async () => {
         idSenha: proximaFila.senha.idSenha,
       },
       data: {
-        status: 'chamada',
+        status: "chamada",
       },
     });
 
@@ -65,7 +71,7 @@ export const getProximaSenha = async () => {
         idFila: proximaFila.idFila,
       },
       data: {
-        status: 'concluida',
+        status: "concluida",
       },
     });
 
@@ -74,28 +80,34 @@ export const getProximaSenha = async () => {
 
   const ultimaSenhaChamada = await prisma.senha.findFirst({
     where: {
+      fkPainel: idPainel,
       salaSenha: { not: null },
     },
     orderBy: {
-      dataSenha: 'desc',
+      dataSenha: "desc",
     },
   });
 
   return ultimaSenhaChamada;
 };
 
-export const getSenhasConcluidas = async () => {
+export const getSenhasConcluidas = async ([data]) => {
+  const { idPainel } = data;
+
   const senhasConcluidas = await prisma.fila.findMany({
     where: {
-      status: 'concluida',
+      status: "concluida",
+      senha: {
+        fkPainel: idPainel,
+      },
     },
     orderBy: {
-      updatedAt: 'desc',
+      updatedAt: "desc",
     },
     include: {
       senha: true,
     },
   });
 
-  return senhasConcluidas.map(fila => fila.senha);
+  return senhasConcluidas.map((fila) => fila.senha);
 };
