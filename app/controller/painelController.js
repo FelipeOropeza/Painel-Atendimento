@@ -59,7 +59,6 @@ class PainelController {
 
   static async painel(req, res) {
     const painel = req.session.painel || null;
-    console.log(painel);
     res.render("painel", {
       painel,
       redirect: "",

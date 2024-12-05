@@ -32,7 +32,7 @@ export const updateSenha = async ([data]) => {
   });
 };
 
-const getNextFilaPosition = async ([data]) => {
+const getNextFilaPosition = async () => {
   const lastFila = await prisma.fila.findFirst({
     orderBy: {
       posicao: "desc",

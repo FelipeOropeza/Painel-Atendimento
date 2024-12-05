@@ -1,20 +1,21 @@
-  async function carregarSenhas() {
+// Função para carregar senhas
+async function carregarSenhas() {
     try {
       const response = await fetch('/senhas-geradas');
       if (!response.ok) {
         throw new Error('Erro ao carregar as senhas.');
       }
-
+  
       const senhasGeradas = await response.json();
       const listaSenhas = document.getElementById('lista-senhas');
       listaSenhas.innerHTML = '';
-
+  
       if (senhasGeradas.length > 0) {
         senhasGeradas.forEach(senha => {
           const li = document.createElement('li');
           li.className =
             'bg-blue-100 p-2 rounded-md flex justify-between items-center';
-
+  
           li.innerHTML = `
             <span>Senha: ${senha.nmSenha}</span>
             <span>Painel: ${senha.painel?.nmPainel || 'N/A'}</span>
@@ -37,5 +38,8 @@
       console.error('Erro ao carregar as senhas:', error);
     }
   }
-
+  
   document.addEventListener('DOMContentLoaded', carregarSenhas);
+  
+  setInterval(carregarSenhas, 30000);
+  

@@ -2,6 +2,7 @@ import {
   getAllSenhas,
   getProximaSenha,
   getSenhasConcluidas,
+  updateSenha,
 } from "../service/senhaService.js";
 
 class SenhaController {
@@ -32,6 +33,14 @@ class SenhaController {
 
       res.json(senhasGeradas);
     }
+  }
+
+  static async vincularSenha(req, res) {
+    const { id } = req.body;
+    const guiche = req.session.guiche;
+    const idSenha = parseInt(id);
+    await updateSenha([{ idSenha, guiche }]);
+    res.redirect("/home");
   }
 }
 
