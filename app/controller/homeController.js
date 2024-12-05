@@ -5,14 +5,10 @@ class HomeController {
     if (!req.session.dados) {
       return res.redirect("/");
     }
-    const senhas = await getAllSenhas();
-    const senhasConvertidas = senhas.map((senha) => ({
-      ...senha,
-      nmSenha: parseInt(senha.nmSenha, 10),
-    }));
+
     const guiche = req.session.guiche || null;
 
-    res.render("home", { guiche, senhas: senhasConvertidas });
+    res.render("home", { guiche });
   }
 
   static setGuiche(req, res) {

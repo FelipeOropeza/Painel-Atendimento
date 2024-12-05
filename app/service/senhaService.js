@@ -1,8 +1,11 @@
 import prisma from "../prisma/client.js";
 
-export const getAllSenhas = async () => {
+export const getAllSenhas = async ([data]) => {
+  const { idPainel } = data;
+
   return await prisma.senha.findMany({
     where: {
+      fkPainel: idPainel,
       salaSenha: null,
     },
     include: {
